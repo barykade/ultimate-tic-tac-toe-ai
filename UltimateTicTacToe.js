@@ -2,7 +2,6 @@ function UltimateTicTacToe() {
 	this.state = [[new Board()][0][0]
 	       	      [0][0][0]
 		      [0][0][0]];
-
 }
 
 function Board() {

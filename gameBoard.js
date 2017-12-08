@@ -1,17 +1,126 @@
+window.onload = UltimateTicTacToe;
 
-var gameboardState = [
-				[[1], [0], [0], [0], [0], [0], [0], [0], [0]],
-				[[0], [2], [0], [0], [0], [0], [1], [0], [0]],
-				[[0], [0], [1], [0], [0], [0], [2], [0], [0]],
-				[[0], [0], [0], [0], [0], [0], [0], [0], [0]],
-				[[0], [0], [0], [0], [2], [0], [0], [0], [0]],
-				[[0], [0], [0], [0], [0], [0], [0], [0], [0]],
-				[[0], [0], [0], [0], [0], [0], [1], [0], [0]],
-				[[0], [0], [0], [0], [0], [0], [0], [2], [0]],
-				[[0], [0], [0], [0], [0], [0], [0], [0], [0]]
-				]
+function createTurn(boardIndex, spotIndex) {
 
-function updateGameBoardUI(){
+	var obj = {
+  		boardIndex: boardIndex,
+  		spotIndex: spotIndex
+	};
+
+	return obj;
+}
+
+function UltimateTicTacToe() {
+	var gameboardsWon = [0, 0, 0,
+						 0, 0, 0,
+						 0, 0, 0];
+
+	var gameboardState = [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0]
+				];
+
+	var gameOver = false;
+	var currentBoard = -1;
+	var currentPlayer = 1;
+	while(!gameOver){
+		
+		var playerTurn = PlayerAI(gameboardState, currentBoard);
+		gameboardState[playerTurn.boardIndex][playerTurn.spotIndex] = currentPlayer;
+		updateGameBoardUI(gameboardState);
+
+		for (var gameboardIndex = 0; gameboardIndex < gameboardsWon.length; gameboardIndex++){
+			gameboardsWon[gameboardIndex] = checkBoardWinner(gameboardState[gameboardIndex]);
+		}
+
+		if (gameboardsWon[playerTurn.spotIndex] != 0){
+			currentBoard = -1;
+		}else{
+			currentBoard = playerTurn.spotIndex;
+		}
+
+		if (currentPlayer == 1){
+			currentPlayer = 2;
+		}else{
+			currentPlayer = 1;
+		}
+
+		if (checkBoardWinner(gameboardsWon) != 0){
+			gameOver = true;
+		}
+	}
+}
+
+function PlayerAI(gameboardState, currentBoard){
+	var turn = createTurn(-1, -1);
+	if (currentBoard == -1){
+		for (var i = 0; i < gameboardState.length; i++){
+			if(checkBoardWinner(gameboardState[i]) == 0){
+				turn.boardIndex = i;
+				break;
+			}
+		}
+		for (var i = 0; i < gameboardState.length; i++){
+			if(gameboardState[currentBoard][i] == 0){
+				turn.spotIndex = i;
+				break;
+			}
+		}
+	}else{
+		turn.boardIndex = currentBoard;
+		for (var i = 0; i < gameboardState.length; i++){
+			if(gameboardState[currentBoard][i] == 0){
+				turn.spotIndex = i;
+				break;
+			}
+		}
+	}
+	return turn;
+}
+
+function checkBoardWinner(boardState){
+	if (boardWinner(boardState, 1)){
+		return 1;
+	}
+	if (boardWinner(boardState, 2)){
+		return 2;
+	}
+	if (boardFull(boardState)){
+		return -1;
+	}
+	return 0;
+}
+
+function boardFull(boardState){
+	for (var i = 0; i < boardState.length; i++){
+		if (boardState[i] == 0){
+			return false;
+		}
+	}
+	return true;
+}
+
+function boardWinner(boardState, player){
+	return boardState[0] == player && boardState[1] == player && boardState[2] == player ||
+           boardState[3] == player && boardState[4] == player && boardState[5] == player ||
+		   boardState[6] == player && boardState[7] == player && boardState[8] == player ||
+           boardState[0] == player && boardState[3] == player && boardState[6] == player ||
+		   boardState[1] == player && boardState[4] == player && boardState[7] == player ||
+           boardState[2] == player && boardState[6] == player && boardState[8] == player ||
+           boardState[0] == player && boardState[5] == player && boardState[8] == player ||
+		   boardState[2] == player && boardState[5] == player && boardState[6] == player;
+}
+
+function updateGameBoardUI(gameboardState){
+	$('.x').remove();
+	$('.o').remove();
 	for (gameboardIndex = 0; gameboardIndex < gameboardState.length; gameboardIndex++) { 
 		for (spotIndex = 0; spotIndex < gameboardState[gameboardIndex].length; spotIndex++){
 			if (gameboardState[gameboardIndex][spotIndex] == 1) {
