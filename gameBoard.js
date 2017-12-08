@@ -33,16 +33,17 @@ async function StartGame() {
   		await sleep(300);
   		var playerTurn;
   		if (currentPlayer == 1){
-  			playerTurn = playerOneAI(gameboardState, currentBoard);
+  			playerTurn = playerOneAI(gameboardState, currentBoard, currentPlayer);
   		}else{
-  			playerTurn = playerTwoAI(gameboardState, currentBoard);
+  			playerTurn = playerTwoAI(gameboardState, currentBoard, currentPlayer);
   		}
 		gameboardState[playerTurn.boardIndex][playerTurn.spotIndex] = currentPlayer;
-		updateGameBoardUI(gameboardState);
 
 		for (var gameboardIndex = 0; gameboardIndex < gameboardsWon.length; gameboardIndex++){
 			gameboardsWon[gameboardIndex] = checkBoardWinner(gameboardState[gameboardIndex]);
 		}
+
+		updateGameBoardUI(gameboardState, gameboardsWon);
 
 		if (gameboardsWon[playerTurn.spotIndex] != 0){
 			currentBoard = -1;
@@ -64,34 +65,6 @@ async function StartGame() {
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function PlayerAI(gameboardState, currentBoard){
-	var turn = createTurn(-1, -1);
-	if (currentBoard == -1){
-		for (var i = 0; i < gameboardState.length; i++){
-			if(checkBoardWinner(gameboardState[i]) == 0){
-				turn.boardIndex = i;
-				currentBoard = i;
-				break;
-			}
-		}
-		for (var i = 0; i < gameboardState.length; i++){
-			if(gameboardState[currentBoard][i] == 0){
-				turn.spotIndex = i;
-				break;
-			}
-		}
-	}else{
-		turn.boardIndex = currentBoard;
-		for (var i = 0; i < gameboardState.length; i++){
-			if(gameboardState[currentBoard][i] == 0){
-				turn.spotIndex = i;
-				break;
-			}
-		}
-	}
-	return turn;
 }
 
 function checkBoardWinner(boardState){
@@ -127,9 +100,11 @@ function boardWinner(boardState, player){
 		   boardState[2] == player && boardState[4] == player && boardState[6] == player;
 }
 
-function updateGameBoardUI(gameboardState){
+function updateGameBoardUI(gameboardState, gameboardsWon){
 	$('.x').remove();
 	$('.o').remove();
+	$('.miniboard-o').remove();
+	$('.miniboard-x').remove();
 	for (gameboardIndex = 0; gameboardIndex < gameboardState.length; gameboardIndex++) { 
 		for (spotIndex = 0; spotIndex < gameboardState[gameboardIndex].length; spotIndex++){
 			if (gameboardState[gameboardIndex][spotIndex] == 1) {
@@ -138,6 +113,17 @@ function updateGameBoardUI(gameboardState){
 			if (gameboardState[gameboardIndex][spotIndex] == 2) {
 				addPlayer2To(gameboardIndex, spotIndex);
 			}
+		}
+	}
+	for (gameboardIndex = 0; gameboardIndex < gameboardsWon.length; gameboardIndex++) {
+		if (gameboardsWon[gameboardIndex] == 1){
+			addPlayerBoardTo(gameboardIndex, 1);
+		}
+		if (gameboardsWon[gameboardIndex] == 2){
+			addPlayerBoardTo(gameboardIndex, 2);
+		}
+		if (gameboardsWon[gameboardIndex] == -1){
+			addPlayerBoardTo(gameboardIndex, -1);
 		}
 	}
 }
@@ -168,4 +154,21 @@ function getLeftFor(gameboardIndex, spotIndex) {
 	var gameboardTopIndex = gameboardIndex % 3;
 	var spotTopIndex = spotIndex % 3;
 	return gameboardTopIndex * 210 + spotTopIndex * 70;
+}
+
+function addPlayerBoardTo(gameboardIndex, player) {
+	var gameboardTopIndex = (Math.floor(gameboardIndex / 3)) * 210;
+	var gameboardLeftIndex = (gameboardIndex % 3) * 210;
+
+	var div = document.createElement("div");
+	div.style.top = gameboardTopIndex + "px";
+	div.style.left = gameboardLeftIndex + "px";;
+	if (player == 1){
+		div.className = "miniboard-x";
+	}else if (player == 2){
+		div.className = "miniboard-o";
+	}else{
+		div.className = "miniboard-cat";
+	}
+	document.getElementById("gameboard").appendChild(div);
 }

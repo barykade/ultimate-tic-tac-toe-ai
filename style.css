@@ -1,6 +1,6 @@
 .gameboard {
 	background-image: url('gameboard.png');
-	background-size: 600px 600px;
+	background-size: 630px 630px;
 	width: 630px;
 	height: 630px;
 	margin: auto;
@@ -35,6 +35,36 @@
 	height: 70px;
 	background-image: url('o.png');
 	background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+.miniboard-x {
+	position: absolute;
+	width: 210px;
+	height: 210px;
+	background-image: url('miniboard-x.png');
+	background-size: 180px 180px;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+.miniboard-o {
+	position: absolute;
+	width: 210px;
+	height: 210px;
+	background-image: url('miniboard-o.png');
+	background-size: 180px 180px;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+.miniboard-cat {
+	position: absolute;
+	width: 210px;
+	height: 210px;
+	background-image: url('miniboard-cat.png');
+	background-size: 180px 180px;
     background-repeat: no-repeat;
     background-position: center; 
 }
