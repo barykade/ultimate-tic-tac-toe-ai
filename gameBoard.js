@@ -29,13 +29,14 @@ async function StartGame() {
 	var currentBoard = -1;
 	var currentPlayer = 1;
 	while(!gameOver){
-		
-  		await sleep(300);
+		await sleep(300);
+		var gameboardStateCopy = gameboardState.slice();
   		var playerTurn;
+  		
   		if (currentPlayer == 1){
-  			playerTurn = playerOneAI(gameboardState, currentBoard, currentPlayer);
+  			playerTurn = playerOneAI(gameboardStateCopy, currentBoard, currentPlayer);
   		}else{
-  			playerTurn = playerTwoAI(gameboardState, currentBoard, currentPlayer);
+  			playerTurn = playerTwoAI(gameboardStateCopy, currentBoard, currentPlayer);
   		}
 		gameboardState[playerTurn.boardIndex][playerTurn.spotIndex] = currentPlayer;
 
