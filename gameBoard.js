@@ -65,6 +65,7 @@ async function StartGame() {
 			}
 
 			if (checkBoardWinner(gameboardsWon) != 0){
+				document.getElementById("player" + checkBoardWinner(gameboardsWon) + "Input").className += " playerWinner";
 				gameOver = true;
 			}
 		}

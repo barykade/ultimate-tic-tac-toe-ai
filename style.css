@@ -68,3 +68,11 @@
     background-repeat: no-repeat;
     background-position: center; 
 }
+
+.playerInput {
+	padding: 10px;
+}
+
+.playerWinner {
+	background-color: wheat;
+}
