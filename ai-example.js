@@ -1,4 +1,4 @@
-function myAI(gameboardState, currentBoard){
+function myAI(gameboardState, currentBoard, player){
 	var turn = createTurn(-1, -1);
 	if (currentBoard == -1){
 		for (var i = 0; i < gameboardState.length; i++){
@@ -23,5 +23,6 @@ function myAI(gameboardState, currentBoard){
 			}
 		}
 	}
+	
 	return turn;
 }
