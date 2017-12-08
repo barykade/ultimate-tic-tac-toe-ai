@@ -33,9 +33,9 @@ async function StartGame() {
   		await sleep(300);
   		var playerTurn;
   		if (currentPlayer == 1){
-  			playerTurn = playerOneAI(gameboardState, currentBoard);
+  			playerTurn = playerOneAI(gameboardState, currentBoard, currentPlayer);
   		}else{
-  			playerTurn = playerTwoAI(gameboardState, currentBoard);
+  			playerTurn = playerTwoAI(gameboardState, currentBoard, currentPlayer);
   		}
 		gameboardState[playerTurn.boardIndex][playerTurn.spotIndex] = currentPlayer;
 		updateGameBoardUI(gameboardState);
@@ -64,34 +64,6 @@ async function StartGame() {
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function PlayerAI(gameboardState, currentBoard){
-	var turn = createTurn(-1, -1);
-	if (currentBoard == -1){
-		for (var i = 0; i < gameboardState.length; i++){
-			if(checkBoardWinner(gameboardState[i]) == 0){
-				turn.boardIndex = i;
-				currentBoard = i;
-				break;
-			}
-		}
-		for (var i = 0; i < gameboardState.length; i++){
-			if(gameboardState[currentBoard][i] == 0){
-				turn.spotIndex = i;
-				break;
-			}
-		}
-	}else{
-		turn.boardIndex = currentBoard;
-		for (var i = 0; i < gameboardState.length; i++){
-			if(gameboardState[currentBoard][i] == 0){
-				turn.spotIndex = i;
-				break;
-			}
-		}
-	}
-	return turn;
 }
 
 function checkBoardWinner(boardState){
