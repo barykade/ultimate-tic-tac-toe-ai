@@ -122,6 +122,9 @@ function updateGameBoardUI(gameboardState, gameboardsWon){
 		if (gameboardsWon[gameboardIndex] == 2){
 			addPlayerBoardTo(gameboardIndex, 2);
 		}
+		if (gameboardsWon[gameboardIndex] == -1){
+			addPlayerBoardTo(gameboardIndex, -1);
+		}
 	}
 }
 
@@ -162,8 +165,10 @@ function addPlayerBoardTo(gameboardIndex, player) {
 	div.style.left = gameboardLeftIndex + "px";;
 	if (player == 1){
 		div.className = "miniboard-x";
-	}else{
+	}else if (player == 2){
 		div.className = "miniboard-o";
+	}else{
+		div.className = "miniboard-cat";
 	}
 	document.getElementById("gameboard").appendChild(div);
 }

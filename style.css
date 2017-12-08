@@ -58,3 +58,13 @@
     background-repeat: no-repeat;
     background-position: center; 
 }
+
+.miniboard-cat {
+	position: absolute;
+	width: 210px;
+	height: 210px;
+	background-image: url('miniboard-cat.png');
+	background-size: 180px 180px;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
