@@ -1,24 +1,40 @@
 .gameboard {
-	background-image: url('board.png');
-	background-size: 900px 900px;
-	width: 900px;
-	height: 900px;
+	background-image: url('gameboard.png');
+	background-size: 600px 600px;
+	width: 630px;
+	height: 630px;
 	margin: auto;
 	position: relative;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+.miniboard {
+	position: absolute;
+	width: 210px;
+	height: 210px;
+	background-image: url('miniboard.png');
+	background-size: 180px 180px;
+    background-repeat: no-repeat;
+    background-position: center; 
 }
 
 .x {
 	position: absolute;
-	width: 100px;
-	height: 100px;
+	width: 70px;
+	height: 70px;
 	background-image: url('x.png');
-	background-size: 100px 100px;
+	background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: center; 
 }
 
 .o {
 	position: absolute;
-	width: 100px;
-	height: 100px;
+	width: 70px;
+	height: 70px;
 	background-image: url('o.png');
-	background-size: 100px 100px;
+	background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: center; 
 }
