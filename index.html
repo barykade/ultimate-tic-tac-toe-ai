@@ -5,6 +5,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="gameboard.js"></script>
 	<script src="UltimateTicTacToe.js"></script>
+	<script src="playerFiles.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -19,6 +20,10 @@
 	<div class="miniboard" style="top: 210px; left: 420px"></div>
 	<div class="miniboard" style="top: 420px; left: 420px"></div>
 </div>
+
+<input type="file" onchange="playerOneImport(this.files)">
+<input type="file" onchange="playerTwoImport(this.files)">
+
 
 </body>
 </html>
