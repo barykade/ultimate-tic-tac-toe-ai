@@ -21,8 +21,10 @@
 </div>
 
 <div style="width: 600px; margin: auto;">
-	<input type="file" onchange="playerOneImport(this.files)">
-	<input type="file" onchange="playerTwoImport(this.files)">
+	<div style="display: inline;">Player 1 (X): </div><input type="file" style="display: inline;" onchange="playerOneImport(this.files)">
+	<br/>
+	<br/>
+	<div style="display: inline;">Player 2 (O): </div><input type="file" style="display: inline;" onchange="playerTwoImport(this.files)">
 	<br/>
 	<br/>
 	<button onclick="StartGame()">Start Game</button>
