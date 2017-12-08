@@ -1,5 +1,3 @@
-window.onload = UltimateTicTacToe;
-
 function createTurn(boardIndex, spotIndex) {
 
 	var obj = {
@@ -10,7 +8,7 @@ function createTurn(boardIndex, spotIndex) {
 	return obj;
 }
 
-async function UltimateTicTacToe() {
+async function StartGame() {
 	var gameboardsWon = [0, 0, 0,
 						 0, 0, 0,
 						 0, 0, 0];
@@ -33,7 +31,12 @@ async function UltimateTicTacToe() {
 	while(!gameOver){
 		
   		await sleep(300);
-		var playerTurn = PlayerAI(gameboardState, currentBoard);
+  		var playerTurn;
+  		if (currentPlayer == 1){
+  			playerTurn = playerOneAI(gameboardState, currentBoard);
+  		}else{
+  			playerTurn = playerTwoAI(gameboardState, currentBoard);
+  		}
 		gameboardState[playerTurn.boardIndex][playerTurn.spotIndex] = currentPlayer;
 		updateGameBoardUI(gameboardState);
 
