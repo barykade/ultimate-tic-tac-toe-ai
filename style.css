@@ -4,14 +4,21 @@
 	width: 900px;
 	height: 900px;
 	margin: auto;
-}
-
-.backgroundimage {
-	width: 900px;
-	height: 900px;
+	position: relative;
 }
 
 .x {
+	position: absolute;
 	width: 100px;
 	height: 100px;
+	background-image: url('x.png');
+	background-size: 100px 100px;
+}
+
+.o {
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	background-image: url('o.png');
+	background-size: 100px 100px;
 }
