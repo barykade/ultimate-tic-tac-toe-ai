@@ -101,7 +101,12 @@ async function StartGame() {
 
 			if (checkBoardWinner(gameboardsWon) != 0){
 				$('.miniboard-highlight').remove();
-				document.getElementById("player" + checkBoardWinner(gameboardsWon) + "Input").className += " playerWinner";
+				document.getElementById("decrementButton").style.visibility = "visible";
+				document.getElementById("incrementButton").style.visibility = "visible";
+				var winnerDiv = document.getElementById("player" + checkBoardWinner(gameboardsWon) + "Input");
+				if (winnerDiv != null) {
+					winnerDiv.className += " playerWinner";
+				}
 				gameOver = true;
 			}
 		}

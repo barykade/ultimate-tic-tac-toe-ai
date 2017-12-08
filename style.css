@@ -86,3 +86,13 @@
 .playerWinner {
 	background-color: wheat;
 }
+
+.decrementButton{
+    width: 98px;
+    padding: 0px;
+}
+
+.incrementButton{
+    width: 98px;
+    padding: 0px;
+}
