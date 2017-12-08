@@ -101,8 +101,10 @@ async function StartGame() {
 
 			if (checkBoardWinner(gameboardsWon) != 0){
 				$('.miniboard-highlight').remove();
+				document.getElementById("decrementAllButton").style.visibility = "visible";
 				document.getElementById("decrementButton").style.visibility = "visible";
 				document.getElementById("incrementButton").style.visibility = "visible";
+				document.getElementById("incrementAllButton").style.visibility = "visible";
 				var winnerDiv = document.getElementById("player" + checkBoardWinner(gameboardsWon) + "Input");
 				if (winnerDiv != null) {
 					winnerDiv.className += " playerWinner";
@@ -264,6 +266,16 @@ function addHighlightBoardTo(gameboardIndex){
 	div.style.left = gameboardLeftIndex + "px";
 	div.className = "miniboard-highlight";
 	document.getElementById("gameboard").appendChild(div);
+}
+
+function incrementAllTurn(){
+	currentTurn = allTurns.length - 1;
+	showCurrentTurn();
+}
+
+function decrementAllTurn(){
+	currentTurn = 0;
+	showCurrentTurn();
 }
 
 function incrementTurn(){
