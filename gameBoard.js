@@ -105,6 +105,7 @@ function updateGameBoardUI(gameboardState, gameboardsWon){
 	$('.o').remove();
 	$('.miniboard-o').remove();
 	$('.miniboard-x').remove();
+	$('.miniboard-cat').remove();
 	for (gameboardIndex = 0; gameboardIndex < gameboardState.length; gameboardIndex++) { 
 		for (spotIndex = 0; spotIndex < gameboardState[gameboardIndex].length; spotIndex++){
 			if (gameboardState[gameboardIndex][spotIndex] == 1) {
