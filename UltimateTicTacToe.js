@@ -2,7 +2,7 @@ var Game = new function() {
 	this.turn = 1;
 
 	this.mainBoard = UltimateTicTacToe();
-	while() {
+	while(1) {
 		turn = playerOneAI();
 		this.mainBoard.state[turn.boardIndex].move(1,turn.spotIndex);			
 	 	if (this.mainBoard.state[turn.boardIndex].checkForWin(1)) {
