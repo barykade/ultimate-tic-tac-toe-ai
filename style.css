@@ -38,3 +38,23 @@
     background-repeat: no-repeat;
     background-position: center; 
 }
+
+.miniboard-x {
+	position: absolute;
+	width: 210px;
+	height: 210px;
+	background-image: url('miniboard-x.png');
+	background-size: 180px 180px;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+.miniboard-o {
+	position: absolute;
+	width: 210px;
+	height: 210px;
+	background-image: url('miniboard-o.png');
+	background-size: 180px 180px;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
