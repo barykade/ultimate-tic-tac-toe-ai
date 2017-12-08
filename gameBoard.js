@@ -8,7 +8,22 @@ function createTurn(boardIndex, spotIndex) {
 	return obj;
 }
 
+function createPreviousTurn(gameboardState, gameboardsWon, currentBoard){
+
+	var obj = {
+		gameboardState: gameboardState,
+		gameboardsWon: gameboardsWon,
+		currentBoard: currentBoard
+	};
+
+	return obj;
+}
+	
+var allTurns = [];
+var currentTurn = 0;
+
 async function StartGame() {
+
 	var gameboardsWon = [0, 0, 0,
 						 0, 0, 0,
 						 0, 0, 0];
@@ -29,8 +44,17 @@ async function StartGame() {
 	var currentBoard = -1;
 	var currentPlayer = 1;
 	highlightMiniboard(currentBoard, gameboardsWon);
+
+	var gameboardCopy = [];
+	for (var i = 0; i < gameboardState.length; i++){
+		gameboardCopy[i] = gameboardState[i].slice();
+	}
+	var gameboardsWonCopy = gameboardsWon.slice();
+	var previousTurn = createPreviousTurn(gameboardCopy, gameboardsWonCopy, currentBoard);
+	allTurns.push(previousTurn);
+
 	while(!gameOver){
-		await sleep(300);
+		await sleep(50);
 		var gameboardStateCopy = gameboardState.slice();
   		var playerTurn;
   		
@@ -56,6 +80,16 @@ async function StartGame() {
 			}else{
 				currentBoard = playerTurn.spotIndex;
 			}
+
+			var gameboardCopy = [];
+			for (var i = 0; i < gameboardState.length; i++){
+				gameboardCopy[i] = gameboardState[i].slice();
+			}
+			var gameboardsWonCopy = gameboardsWon.slice();
+			var previousTurn = createPreviousTurn(gameboardCopy, gameboardsWonCopy, currentBoard);
+			allTurns.push(previousTurn);
+
+  			currentTurn++;
 
 			updateGameBoardUI(gameboardState, gameboardsWon, currentBoard);
 
@@ -225,4 +259,22 @@ function addHighlightBoardTo(gameboardIndex){
 	div.style.left = gameboardLeftIndex + "px";
 	div.className = "miniboard-highlight";
 	document.getElementById("gameboard").appendChild(div);
+}
+
+function incrementTurn(){
+	if (currentTurn < (allTurns.length - 1)) {
+		currentTurn++;
+	}
+	showCurrentTurn();
+}
+
+function decrementTurn(){
+	if (currentTurn > 0){
+		currentTurn--;
+	}
+	showCurrentTurn();
+}
+
+function showCurrentTurn() {
+	updateGameBoardUI(allTurns[currentTurn].gameboardState, allTurns[currentTurn].gameboardsWon, allTurns[currentTurn].currentBoard);
 }
