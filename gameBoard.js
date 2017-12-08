@@ -37,34 +37,58 @@ async function StartGame() {
   		}else{
   			playerTurn = playerTwoAI(gameboardState, currentBoard, currentPlayer);
   		}
-		gameboardState[playerTurn.boardIndex][playerTurn.spotIndex] = currentPlayer;
 
-		for (var gameboardIndex = 0; gameboardIndex < gameboardsWon.length; gameboardIndex++){
-			gameboardsWon[gameboardIndex] = checkBoardWinner(gameboardState[gameboardIndex]);
-		}
+  		if (!turnValid(playerTurn, gameboardState, currentBoard, gameboardsWon)){
+  			alert("Player " + currentPlayer + " invalid move: (" + playerTurn.boardIndex + ", " + playerTurn.spotIndex + ")");
+  			gameOver = true;
+  			break;
+  		}else{
+			gameboardState[playerTurn.boardIndex][playerTurn.spotIndex] = currentPlayer;
 
-		updateGameBoardUI(gameboardState, gameboardsWon);
+			for (var gameboardIndex = 0; gameboardIndex < gameboardsWon.length; gameboardIndex++){
+				gameboardsWon[gameboardIndex] = checkBoardWinner(gameboardState[gameboardIndex]);
+			}
 
-		if (gameboardsWon[playerTurn.spotIndex] != 0){
-			currentBoard = -1;
-		}else{
-			currentBoard = playerTurn.spotIndex;
-		}
+			updateGameBoardUI(gameboardState, gameboardsWon);
 
-		if (currentPlayer == 1){
-			currentPlayer = 2;
-		}else{
-			currentPlayer = 1;
-		}
+			if (gameboardsWon[playerTurn.spotIndex] != 0){
+				currentBoard = -1;
+			}else{
+				currentBoard = playerTurn.spotIndex;
+			}
 
-		if (checkBoardWinner(gameboardsWon) != 0){
-			gameOver = true;
+			if (currentPlayer == 1){
+				currentPlayer = 2;
+			}else{
+				currentPlayer = 1;
+			}
+
+			if (checkBoardWinner(gameboardsWon) != 0){
+				gameOver = true;
+			}
 		}
 	}
 }
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function turnValid(playerTurn, gameboardState, currentBoard, gameboardsWon) {
+	if (playerTurn.boardIndex < 0 && playerTurn.boardIndex >= gameboardState.length &&
+		playerTurn.spotIndex < 0 && playerTurn.spotIndex >= gameboardState[currentBoard].length){
+		return false;
+	}
+	if (playerTurn.boardIndex != currentBoard && currentBoard != -1){
+		return false;
+	}
+	if (gameboardsWon[playerTurn.boardIndex] != 0){
+		return false;
+	}
+	if (gameboardState[playerTurn.boardIndex][playerTurn.spotIndex] != 0){
+		return false;
+	}
+	return true;
 }
 
 function checkBoardWinner(boardState){
