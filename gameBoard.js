@@ -28,6 +28,7 @@ async function StartGame() {
 	var gameOver = false;
 	var currentBoard = -1;
 	var currentPlayer = 1;
+	highlightMiniboard(currentBoard, gameboardsWon);
 	while(!gameOver){
 		await sleep(300);
 		var gameboardStateCopy = gameboardState.slice();
@@ -50,13 +51,13 @@ async function StartGame() {
 				gameboardsWon[gameboardIndex] = checkBoardWinner(gameboardState[gameboardIndex]);
 			}
 
-			updateGameBoardUI(gameboardState, gameboardsWon);
-
 			if (gameboardsWon[playerTurn.spotIndex] != 0){
 				currentBoard = -1;
 			}else{
 				currentBoard = playerTurn.spotIndex;
 			}
+
+			updateGameBoardUI(gameboardState, gameboardsWon, currentBoard);
 
 			if (currentPlayer == 1){
 				currentPlayer = 2;
@@ -65,6 +66,7 @@ async function StartGame() {
 			}
 
 			if (checkBoardWinner(gameboardsWon) != 0){
+				$('.miniboard-highlight').remove();
 				document.getElementById("player" + checkBoardWinner(gameboardsWon) + "Input").className += " playerWinner";
 				gameOver = true;
 			}
@@ -126,7 +128,20 @@ function boardWinner(boardState, player){
 		   boardState[2] == player && boardState[4] == player && boardState[6] == player;
 }
 
-function updateGameBoardUI(gameboardState, gameboardsWon){
+function highlightMiniboard(currentBoard, gameboardsWon) {
+	$('.miniboard-highlight').remove();
+	if (currentBoard == -1){
+		for (gameboardIndex = 0; gameboardIndex < gameboardsWon.length; gameboardIndex++) {
+			 if (gameboardsWon[gameboardIndex] == 0){
+				addHighlightBoardTo(gameboardIndex);
+			}
+		}
+	}else{
+		addHighlightBoardTo(currentBoard);
+	}
+}
+
+function updateGameBoardUI(gameboardState, gameboardsWon, currentBoard){
 	$('.x').remove();
 	$('.o').remove();
 	$('.miniboard-o').remove();
@@ -153,6 +168,7 @@ function updateGameBoardUI(gameboardState, gameboardsWon){
 			addPlayerBoardTo(gameboardIndex, -1);
 		}
 	}
+	highlightMiniboard(currentBoard, gameboardsWon);
 }
 
 function addPlayer1To(gameboardIndex, spotIndex){
@@ -189,7 +205,7 @@ function addPlayerBoardTo(gameboardIndex, player) {
 
 	var div = document.createElement("div");
 	div.style.top = gameboardTopIndex + "px";
-	div.style.left = gameboardLeftIndex + "px";;
+	div.style.left = gameboardLeftIndex + "px";
 	if (player == 1){
 		div.className = "miniboard-x";
 	}else if (player == 2){
@@ -197,5 +213,16 @@ function addPlayerBoardTo(gameboardIndex, player) {
 	}else{
 		div.className = "miniboard-cat";
 	}
+	document.getElementById("gameboard").appendChild(div);
+}
+
+function addHighlightBoardTo(gameboardIndex){
+	var gameboardTopIndex = (Math.floor(gameboardIndex / 3)) * 210;
+	var gameboardLeftIndex = (gameboardIndex % 3) * 210;
+
+	var div = document.createElement("div");
+	div.style.top = gameboardTopIndex + "px";
+	div.style.left = gameboardLeftIndex + "px";
+	div.className = "miniboard-highlight";
 	document.getElementById("gameboard").appendChild(div);
 }
