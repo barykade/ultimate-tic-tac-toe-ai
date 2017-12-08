@@ -1,0 +1,17 @@
+.gameboard {
+	background-image: url('board.png');
+	background-size: 900px 900px;
+	width: 900px;
+	height: 900px;
+	margin: auto;
+}
+
+.backgroundimage {
+	width: 900px;
+	height: 900px;
+}
+
+.x {
+	width: 100px;
+	height: 100px;
+}
