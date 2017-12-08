@@ -10,7 +10,7 @@ function createTurn(boardIndex, spotIndex) {
 	return obj;
 }
 
-function UltimateTicTacToe() {
+async function UltimateTicTacToe() {
 	var gameboardsWon = [0, 0, 0,
 						 0, 0, 0,
 						 0, 0, 0];
@@ -32,6 +32,7 @@ function UltimateTicTacToe() {
 	var currentPlayer = 1;
 	while(!gameOver){
 		
+  		await sleep(300);
 		var playerTurn = PlayerAI(gameboardState, currentBoard);
 		gameboardState[playerTurn.boardIndex][playerTurn.spotIndex] = currentPlayer;
 		updateGameBoardUI(gameboardState);
@@ -58,12 +59,17 @@ function UltimateTicTacToe() {
 	}
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function PlayerAI(gameboardState, currentBoard){
 	var turn = createTurn(-1, -1);
 	if (currentBoard == -1){
 		for (var i = 0; i < gameboardState.length; i++){
 			if(checkBoardWinner(gameboardState[i]) == 0){
 				turn.boardIndex = i;
+				currentBoard = i;
 				break;
 			}
 		}

@@ -43,7 +43,7 @@ function Board() {
 		this.state[index] = turn;
 	};
 
-	this.checkForWin (turn) {
+	this.checkForWin = function (turn) {
 		checkForWin(turn,this.state);
 	};	
 
