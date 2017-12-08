@@ -119,9 +119,9 @@ function boardWinner(boardState, player){
 		   boardState[6] == player && boardState[7] == player && boardState[8] == player ||
            boardState[0] == player && boardState[3] == player && boardState[6] == player ||
 		   boardState[1] == player && boardState[4] == player && boardState[7] == player ||
-           boardState[2] == player && boardState[6] == player && boardState[8] == player ||
-           boardState[0] == player && boardState[5] == player && boardState[8] == player ||
-		   boardState[2] == player && boardState[5] == player && boardState[6] == player;
+           boardState[2] == player && boardState[5] == player && boardState[8] == player ||
+           boardState[0] == player && boardState[4] == player && boardState[8] == player ||
+		   boardState[2] == player && boardState[4] == player && boardState[6] == player;
 }
 
 function updateGameBoardUI(gameboardState){
