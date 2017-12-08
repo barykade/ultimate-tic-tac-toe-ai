@@ -2,15 +2,21 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="gameboard.js"></script>
 	<script src="UltimateTicTacToe.js"></script>
 </head>
 <body>
 
-<div class="gameboard">	
-<script>
-console.log('testing');
-console.log(UltimateTicTacToe().state[0].state[0]);
-</script>	
+<div class="gameboard" id="gameboard">	
+	<div class="miniboard" style="top: 0px; left: 0px"></div>
+	<div class="miniboard" style="top: 210px; left: 0px"></div>
+	<div class="miniboard" style="top: 420px; left: 0px"></div>
+	<div class="miniboard" style="top: 0px; left: 210px"></div>
+	<div class="miniboard" style="top: 210px; left: 210px"></div>
+	<div class="miniboard" style="top: 420px; left: 210px"></div>
+	<div class="miniboard" style="top: 0px; left: 420px"></div>
+	<div class="miniboard" style="top: 210px; left: 420px"></div>
+	<div class="miniboard" style="top: 420px; left: 420px"></div>
 </div>
 
 </body>
