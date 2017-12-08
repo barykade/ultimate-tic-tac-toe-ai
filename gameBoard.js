@@ -38,11 +38,12 @@ async function StartGame() {
   			playerTurn = playerTwoAI(gameboardState, currentBoard);
   		}
 		gameboardState[playerTurn.boardIndex][playerTurn.spotIndex] = currentPlayer;
-		updateGameBoardUI(gameboardState);
 
 		for (var gameboardIndex = 0; gameboardIndex < gameboardsWon.length; gameboardIndex++){
 			gameboardsWon[gameboardIndex] = checkBoardWinner(gameboardState[gameboardIndex]);
 		}
+
+		updateGameBoardUI(gameboardState, gameboardsWon);
 
 		if (gameboardsWon[playerTurn.spotIndex] != 0){
 			currentBoard = -1;
@@ -127,9 +128,11 @@ function boardWinner(boardState, player){
 		   boardState[2] == player && boardState[4] == player && boardState[6] == player;
 }
 
-function updateGameBoardUI(gameboardState){
+function updateGameBoardUI(gameboardState, gameboardsWon){
 	$('.x').remove();
 	$('.o').remove();
+	$('.miniboard-o').remove();
+	$('.miniboard-x').remove();
 	for (gameboardIndex = 0; gameboardIndex < gameboardState.length; gameboardIndex++) { 
 		for (spotIndex = 0; spotIndex < gameboardState[gameboardIndex].length; spotIndex++){
 			if (gameboardState[gameboardIndex][spotIndex] == 1) {
@@ -138,6 +141,14 @@ function updateGameBoardUI(gameboardState){
 			if (gameboardState[gameboardIndex][spotIndex] == 2) {
 				addPlayer2To(gameboardIndex, spotIndex);
 			}
+		}
+	}
+	for (gameboardIndex = 0; gameboardIndex < gameboardsWon.length; gameboardIndex++) {
+		if (gameboardsWon[gameboardIndex] == 1){
+			addPlayerBoardTo(gameboardIndex, 1);
+		}
+		if (gameboardsWon[gameboardIndex] == 2){
+			addPlayerBoardTo(gameboardIndex, 2);
 		}
 	}
 }
@@ -168,4 +179,19 @@ function getLeftFor(gameboardIndex, spotIndex) {
 	var gameboardTopIndex = gameboardIndex % 3;
 	var spotTopIndex = spotIndex % 3;
 	return gameboardTopIndex * 210 + spotTopIndex * 70;
+}
+
+function addPlayerBoardTo(gameboardIndex, player) {
+	var gameboardTopIndex = (Math.floor(gameboardIndex / 3)) * 210;
+	var gameboardLeftIndex = (gameboardIndex % 3) * 210;
+
+	var div = document.createElement("div");
+	div.style.top = gameboardTopIndex + "px";
+	div.style.left = gameboardLeftIndex + "px";;
+	if (player == 1){
+		div.className = "miniboard-x";
+	}else{
+		div.className = "miniboard-o";
+	}
+	document.getElementById("gameboard").appendChild(div);
 }
