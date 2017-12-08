@@ -12,26 +12,32 @@ var gameboardState = [
 				]
 
 function updateGameBoardUI(){
-	var gameboardDiv = document.getElementById("gameboard");
-
 	for (gameboardIndex = 0; gameboardIndex < gameboardState.length; gameboardIndex++) { 
 		for (spotIndex = 0; spotIndex < gameboardState[gameboardIndex].length; spotIndex++){
 			if (gameboardState[gameboardIndex][spotIndex] == 1) {
-				var div = document.createElement("div");
-				div.style.top = getTopFor(gameboardIndex, spotIndex) + "px";
-				div.style.left = getLeftFor(gameboardIndex, spotIndex) + "px";;
-				div.className = "x";
-				gameboardDiv.appendChild(div);
+				addPlayer1To(gameboardIndex, spotIndex);
 			}
 			if (gameboardState[gameboardIndex][spotIndex] == 2) {
-				var div = document.createElement("div");
-				div.style.top = getTopFor(gameboardIndex, spotIndex) + "px";
-				div.style.left = getLeftFor(gameboardIndex, spotIndex) + "px";;
-				div.className = "o";
-				gameboardDiv.appendChild(div);
+				addPlayer2To(gameboardIndex, spotIndex);
 			}
 		}
 	}
+}
+
+function addPlayer1To(gameboardIndex, spotIndex){
+	var div = document.createElement("div");
+	div.style.top = getTopFor(gameboardIndex, spotIndex) + "px";
+	div.style.left = getLeftFor(gameboardIndex, spotIndex) + "px";;
+	div.className = "x";
+	document.getElementById("gameboard").appendChild(div);
+}
+
+function addPlayer2To(gameboardIndex, spotIndex){
+	var div = document.createElement("div");
+	div.style.top = getTopFor(gameboardIndex, spotIndex) + "px";
+	div.style.left = getLeftFor(gameboardIndex, spotIndex) + "px";;
+	div.className = "o";
+	document.getElementById("gameboard").appendChild(div);
 }
 
 function getTopFor(gameboardIndex, spotIndex) {
