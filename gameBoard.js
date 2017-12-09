@@ -78,23 +78,24 @@ async function StartGame(updateUI) {
 				[0, 0, 0, 0, 0, 0, 0, 0, 0]
 				];
 
-	allTurns = [];
-	currentTurn = 0;
 
 	var gameOver = false;
 	var currentBoard = -1;
 	var currentPlayer = 1;
 	if(updateUI){
 		highlightMiniboard(currentBoard, gameboardsWon);
-	}
 
-	var gameboardCopy = [];
-	for (var i = 0; i < gameboardState.length; i++){
-		gameboardCopy[i] = gameboardState[i].slice();
+		allTurns = [];
+		currentTurn = 0;
+
+		var gameboardCopy = [];
+		for (var i = 0; i < gameboardState.length; i++){
+			gameboardCopy[i] = gameboardState[i].slice();
+		}
+		var gameboardsWonCopy = gameboardsWon.slice();
+		var gameSnapshot = GameSnapshot(gameboardCopy, gameboardsWonCopy, currentBoard);
+		allTurns.push(gameSnapshot);
 	}
-	var gameboardsWonCopy = gameboardsWon.slice();
-	var gameSnapshot = GameSnapshot(gameboardCopy, gameboardsWonCopy, currentBoard);
-	allTurns.push(gameSnapshot);
 
 	while(!gameOver){
 		if (updateUI){
@@ -135,7 +136,7 @@ async function StartGame(updateUI) {
 				player2Wins++;
 				allWins.push(2);
 			}
-			
+
 			$("#player1Wins").html(player1Wins);
 			$("#player2Wins").html(player2Wins);
 
@@ -155,15 +156,17 @@ async function StartGame(updateUI) {
 				currentBoard = playerTurn.spotIndex;
 			}
 
-			var gameboardCopy = [];
-			for (var i = 0; i < gameboardState.length; i++){
-				gameboardCopy[i] = gameboardState[i].slice();
+			if (updateUI){
+				var gameboardCopy = [];
+				for (var i = 0; i < gameboardState.length; i++){
+					gameboardCopy[i] = gameboardState[i].slice();
+				}
+				var gameboardsWonCopy = gameboardsWon.slice();
+				var gameSnapshot = GameSnapshot(gameboardCopy, gameboardsWonCopy, currentBoard);
+				allTurns.push(gameSnapshot);
+  				currentTurn++;
 			}
-			var gameboardsWonCopy = gameboardsWon.slice();
-			var gameSnapshot = GameSnapshot(gameboardCopy, gameboardsWonCopy, currentBoard);
-			allTurns.push(gameSnapshot);
 
-  			currentTurn++;
 
   			if (updateUI){
 				updateGameBoardUI(gameboardState, gameboardsWon, currentBoard);
