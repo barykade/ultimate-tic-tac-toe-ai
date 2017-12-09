@@ -36,6 +36,14 @@ function PlayMultipleGames() {
 	while(allWins.length < gamesToPlay){
 		StartGame(false);
 	}
+
+	$("#player1Input").removeClass("playerWinner");
+	$("#player2Input").removeClass("playerWinner");
+	if (player1Wins > player2Wins){
+		$("#player1Input").addClass("playerWinner");
+	}else if(player2Wins > player1Wins){
+		$("#player2Input").addClass("playerWinner");
+	}
 }
 
 async function StartGame(updateUI) {
