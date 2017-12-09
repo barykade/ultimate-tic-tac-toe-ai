@@ -2,7 +2,7 @@ function myAI(gameboard, gameboardsWon, currentBoard, player){
 	console.log('Running SpeckBot');
 
 	var corners = [0,2,6,8];
-	var turn = createTurn(-1, -1);
+	var turn = Turn(-1, -1);
 	if (currentBoard == -1){
 		console.log('free move');
 		if (gameboard[4][4] == 0 && !checkForWinner(gameboard[4],1) && !checkForWinner(gameboard[4],2)) {

@@ -17,14 +17,14 @@
 //
 //      player = which player index you are.  1 = X, 2 = O
 
-//		return value: createTurn(boardIndex, spotIndex)
+//		return value: Turn(boardIndex, spotIndex)
 //			boardIndex is the miniboard you want to play in (must == currentBoard if currentBoard != -1)
 //				miniboard must be in an unfinished board
 //			spotIndex is the position in the miniboard you want to play in
 //				spot must be equal to 0 in the gameboardState
 
 function myAI(gameboardState, gameboardsWon, currentBoardIndex, player){
-	var turn = createTurn(-1, -1);
+	var turn = Turn(-1, -1);
 	if (currentBoardIndex == -1){
 		for (var i = 0; i < gameboardState.length; i++){
 			if(gameboardsWon[i] == 0){
@@ -52,11 +52,14 @@ function myAI(gameboardState, gameboardsWon, currentBoardIndex, player){
 	return turn;
 }
 
-//function createTurn(boardIndex, spotIndex);
+//function Turn(boardIndex, spotIndex);
 //		creates and returns an object with boardIndex and spotIndex
 
-//function createGameSnapshot(gameboardState, gameboardsWon, currentBoard);
+//function GameSnapshot(gameboardState, gameboardsWon, currentBoard);
 //		creates and returns an object with gameboardState, gameboardsWon, and currentBoard
+
+//var allTurns;
+//		array of all GameSnapshots for the history of the game
 
 //function turnValid(playerTurn, gameboardState, currentBoard, gameboardsWon);
 //		returns true if playerTurn is a valid turn for the current gameboardState, currentBoard, and gameboardsWon
