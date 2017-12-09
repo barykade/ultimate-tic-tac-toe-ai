@@ -178,6 +178,10 @@ async function StartGame(updateUI) {
 					catsWins++;
 					allWins.push(-1);
 				}
+
+				$("#player1Wins").html(player1Wins);
+				$("#player2Wins").html(player2Wins);
+
 				gameOver = true;
 			}
 		}

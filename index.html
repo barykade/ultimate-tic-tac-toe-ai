@@ -29,15 +29,21 @@
 
 <div style="width: 600px; margin: auto;">
 	<div id="player1Input" class="playerInput">
-		<div style="display: inline;">Player 1 (X): </div><input type="file" style="display: inline;" onchange="playerOneImport(this.files)">
+		<div style="display: inline;">Player 1 (X): </div>
+		<input type="file" style="display: inline;" onchange="playerOneImport(this.files)">
+		<div style="display: inline;">Wins: </div>
+		<div id="player1Wins" style="display: inline;"></div>
 	</div>
 	<div id="player2Input" class="playerInput">
-		<div style="display: inline;">Player 2 (O): </div><input type="file" style="display: inline;" onchange="playerTwoImport(this.files)">
+		<div style="display: inline;">Player 2 (O): </div>
+		<input type="file" style="display: inline;" onchange="playerTwoImport(this.files)">
+		<div style="display: inline;">Wins: </div>
+		<div id="player2Wins" style="display: inline;"></div>
 	</div>
 	<div class="playerInput">
-		<input id="multipleGamesInput">
-		<button id="playMultipleGamesButton" onclick="PlayMultipleGames()">Play Multiple Games</button>
 		<button id="startGameButton" onclick="StartGame(true)">Start Single Game</button>
+		<button id="playMultipleGamesButton" style="margin-left: 115px;" onclick="PlayMultipleGames()">Play Multiple Games</button>
+		<input id="multipleGamesInput">
 	</div>
 </div>
 
