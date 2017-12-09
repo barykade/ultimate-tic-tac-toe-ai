@@ -110,7 +110,9 @@ async function StartGame(updateUI) {
   		}
 
   		if (!turnValid(playerTurn, gameboardState, currentBoard, gameboardsWon)){
-  			alert("Player " + currentPlayer + " invalid move: (" + playerTurn.boardIndex + ", " + playerTurn.spotIndex + ")");
+  			if(updateUI){
+  				alert("Player " + currentPlayer + " invalid move: (" + playerTurn.boardIndex + ", " + playerTurn.spotIndex + ")");
+  			}
 
 			$('.miniboard-highlight').remove();
 			$("#decrementAllButton").css("visibility", "visible");
