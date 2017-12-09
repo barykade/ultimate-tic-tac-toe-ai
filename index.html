@@ -35,7 +35,9 @@
 		<div style="display: inline;">Player 2 (O): </div><input type="file" style="display: inline;" onchange="playerTwoImport(this.files)">
 	</div>
 	<div class="playerInput">
-		<button id="startGameButton" onclick="StartGame()">Start Game</button>
+		<input id="multipleGamesInput">
+		<button id="playMultipleGamesButton" onclick="PlayMultipleGames()">Play Multiple Games</button>
+		<button id="startGameButton" onclick="StartGame(true)">Start Single Game</button>
 	</div>
 </div>
 

@@ -21,13 +21,31 @@ function GameSnapshot(gameboardState, gameboardsWon, currentBoard){
 	
 var allTurns = [];
 var currentTurn = 0;
+var allWins = [];
+var player1Wins = 0;
+var player2Wins = 0;
+var catsWins = 0;
 
-async function StartGame() {
+function PlayMultipleGames() {
+	allWins = [];
+	player1Wins = 0;
+	player2Wins = 0;
+	catsWins = 0;
+
+	var gamesToPlay = $('#multipleGamesInput').val();
+	while(allWins.length < gamesToPlay){
+		StartGame(false);
+	}
+}
+
+async function StartGame(updateUI) {
 
 	$("#decrementAllButton").css("visibility", "hidden");
 	$("#decrementButton").css("visibility", "hidden");
 	$("#incrementButton").css("visibility", "hidden");
 	$("#incrementAllButton").css("visibility", "hidden");
+	$("#multipleGamesInput").css("visibility", "hidden");
+	$("#playMultipleGamesButton").css("visibility", "hidden");
 	$("#startGameButton").css("visibility", "hidden");
 	$("#player1Input").removeClass("playerWinner");
 	$("#player2Input").removeClass("playerWinner");
@@ -48,10 +66,15 @@ async function StartGame() {
 				[0, 0, 0, 0, 0, 0, 0, 0, 0]
 				];
 
+	allTurns = [];
+	currentTurn = 0;
+
 	var gameOver = false;
 	var currentBoard = -1;
 	var currentPlayer = 1;
-	highlightMiniboard(currentBoard, gameboardsWon);
+	if(updateUI){
+		highlightMiniboard(currentBoard, gameboardsWon);
+	}
 
 	var gameboardCopy = [];
 	for (var i = 0; i < gameboardState.length; i++){
@@ -62,7 +85,9 @@ async function StartGame() {
 	allTurns.push(gameSnapshot);
 
 	while(!gameOver){
-		await sleep(50);
+		if (updateUI){
+			await sleep(50);
+		}
 		var gameboardStateCopy = [];
 		for (var i = 0; i < gameboardState.length; i++){
 			gameboardStateCopy[i] = gameboardState[i].slice();
@@ -78,7 +103,26 @@ async function StartGame() {
 
   		if (!turnValid(playerTurn, gameboardState, currentBoard, gameboardsWon)){
   			alert("Player " + currentPlayer + " invalid move: (" + playerTurn.boardIndex + ", " + playerTurn.spotIndex + ")");
-  			gameOver = true;
+
+			$('.miniboard-highlight').remove();
+			$("#decrementAllButton").css("visibility", "visible");
+			$("#decrementButton").css("visibility", "visible");
+			$("#incrementButton").css("visibility", "visible");
+			$("#incrementAllButton").css("visibility", "visible");
+			$("#multipleGamesInput").css("visibility", "visible");
+			$("#playMultipleGamesButton").css("visibility", "visible");
+			$("#startGameButton").css("visibility", "visible");
+			if (currentPlayer == 2){
+				$("#player1Input").addClass("playerWinner");
+				player1Wins++;
+				allWins.push(1);
+			}else if(currentPlayer == 1){
+				$("#player2Input").addClass("playerWinner");
+				player2Wins++;
+				allWins.push(2);
+			}
+			gameOver = true;
+
   			break;
   		}else{
 			gameboardState[playerTurn.boardIndex][playerTurn.spotIndex] = currentPlayer;
@@ -103,7 +147,9 @@ async function StartGame() {
 
   			currentTurn++;
 
-			updateGameBoardUI(gameboardState, gameboardsWon, currentBoard);
+  			if (updateUI){
+				updateGameBoardUI(gameboardState, gameboardsWon, currentBoard);
+			}
 
 			if (currentPlayer == 1){
 				currentPlayer = 2;
@@ -117,11 +163,20 @@ async function StartGame() {
 				$("#decrementButton").css("visibility", "visible");
 				$("#incrementButton").css("visibility", "visible");
 				$("#incrementAllButton").css("visibility", "visible");
+				$("#multipleGamesInput").css("visibility", "visible");
+				$("#playMultipleGamesButton").css("visibility", "visible");
 				$("#startGameButton").css("visibility", "visible");
 				if (checkBoardWinner(gameboardsWon) == 1){
 					$("#player1Input").addClass("playerWinner");
+					player1Wins++;
+					allWins.push(1);
 				}else if(checkBoardWinner(gameboardsWon) == 2){
 					$("#player2Input").addClass("playerWinner");
+					player2Wins++;
+					allWins.push(2);
+				}else{
+					catsWins++;
+					allWins.push(-1);
 				}
 				gameOver = true;
 			}
