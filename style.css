@@ -1,8 +1,8 @@
 .gameboard {
 	background-image: url('gameboard.png');
-	background-size: 630px 630px;
-	width: 630px;
-	height: 630px;
+	background-size: 540px 540px;
+	width: 540px;
+	height: 540px;
 	margin: auto;
 	position: relative;
     background-repeat: no-repeat;
@@ -11,70 +11,70 @@
 
 .miniboard {
 	position: absolute;
-	width: 210px;
-	height: 210px;
+	width: 180px;
+	height: 180px;
 	background-image: url('miniboard.png');
-	background-size: 180px 180px;
+	background-size: 160px 160px;
     background-repeat: no-repeat;
     background-position: center; 
 }
 
 .x {
 	position: absolute;
-	width: 70px;
-	height: 70px;
+	width: 60px;
+	height: 60px;
 	background-image: url('x.png');
-	background-size: 30px 30px;
+	background-size: 25px 25px;
     background-repeat: no-repeat;
     background-position: center; 
 }
 
 .o {
 	position: absolute;
-	width: 70px;
-	height: 70px;
+	width: 60px;
+	height: 60px;
 	background-image: url('o.png');
-	background-size: 30px 30px;
+	background-size: 25px 25px;
     background-repeat: no-repeat;
     background-position: center; 
 }
 
 .miniboard-x {
 	position: absolute;
-	width: 210px;
-	height: 210px;
+	width: 180px;
+	height: 180px;
 	background-image: url('miniboard-x.png');
-	background-size: 180px 180px;
+	background-size: 160px 160px;
     background-repeat: no-repeat;
     background-position: center; 
 }
 
 .miniboard-o {
 	position: absolute;
-	width: 210px;
-	height: 210px;
+	width: 180px;
+	height: 180px;
 	background-image: url('miniboard-o.png');
-	background-size: 180px 180px;
+	background-size: 160px 160px;
     background-repeat: no-repeat;
     background-position: center; 
 }
 
 .miniboard-cat {
 	position: absolute;
-	width: 210px;
-	height: 210px;
+	width: 180px;
+	height: 180px;
 	background-image: url('miniboard-cat.png');
-	background-size: 180px 180px;
+	background-size: 160px 160px;
     background-repeat: no-repeat;
     background-position: center; 
 }
 
 .miniboard-highlight {
 	position: absolute;
-	width: 210px;
-	height: 210px;
+	width: 180px;
+	height: 180px;
 	background-image: url('miniboard-highlight.png');
-	background-size: 180px 180px;
+	background-size: 160px 160px;
     background-repeat: no-repeat;
     background-position: center; 
 }

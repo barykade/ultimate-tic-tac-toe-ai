@@ -245,18 +245,18 @@ function addPlayer2To(gameboardIndex, spotIndex){
 function getTopFor(gameboardIndex, spotIndex) {
 	var gameboardTopIndex = Math.floor(gameboardIndex / 3);
 	var spotTopIndex = Math.floor(spotIndex / 3);
-	return gameboardTopIndex * 210 + spotTopIndex * 70;
+	return gameboardTopIndex * 180 + spotTopIndex * 60;
 }
 
 function getLeftFor(gameboardIndex, spotIndex) {
 	var gameboardTopIndex = gameboardIndex % 3;
 	var spotTopIndex = spotIndex % 3;
-	return gameboardTopIndex * 210 + spotTopIndex * 70;
+	return gameboardTopIndex * 180 + spotTopIndex * 60;
 }
 
 function addPlayerBoardTo(gameboardIndex, player) {
-	var gameboardTopIndex = (Math.floor(gameboardIndex / 3)) * 210;
-	var gameboardLeftIndex = (gameboardIndex % 3) * 210;
+	var gameboardTopIndex = (Math.floor(gameboardIndex / 3)) * 180;
+	var gameboardLeftIndex = (gameboardIndex % 3) * 180;
 
 	var div = document.createElement("div");
 	div.style.top = gameboardTopIndex + "px";
@@ -272,8 +272,8 @@ function addPlayerBoardTo(gameboardIndex, player) {
 }
 
 function addHighlightBoardTo(gameboardIndex){
-	var gameboardTopIndex = (Math.floor(gameboardIndex / 3)) * 210;
-	var gameboardLeftIndex = (gameboardIndex % 3) * 210;
+	var gameboardTopIndex = (Math.floor(gameboardIndex / 3)) * 180;
+	var gameboardLeftIndex = (gameboardIndex % 3) * 180;
 
 	var div = document.createElement("div");
 	div.style.top = gameboardTopIndex + "px";
