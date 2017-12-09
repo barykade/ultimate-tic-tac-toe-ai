@@ -55,7 +55,10 @@ async function StartGame() {
 
 	while(!gameOver){
 		await sleep(50);
-		var gameboardStateCopy = gameboardState.slice();
+		var gameboardStateCopy = [];
+		for (var i = 0; i < gameboardState.length; i++){
+			gameboardStateCopy[i] = gameboardState[i].slice();
+		}
 		var gameboardsWonCopy = gameboardsWon.slice();
   		var playerTurn;
   		
