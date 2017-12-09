@@ -1,5 +1,5 @@
 function myAI(gameboardState, gameboardsWon, currentBoard, myTeam){
-	var turn = createTurn(-1, -1);
+	var turn = Turn(-1, -1);
 	if (currentBoard == -1){
 		var isValidMiniBoard = false;
 		var miniBoard = -1;
@@ -24,7 +24,7 @@ function myAI(gameboardState, gameboardsWon, currentBoard, myTeam){
 	return turn;
 }
 
-function createTurn(boardIndex, spotIndex) {
+function Turn(boardIndex, spotIndex) {
 
 	var obj = {
   		boardIndex: boardIndex,
