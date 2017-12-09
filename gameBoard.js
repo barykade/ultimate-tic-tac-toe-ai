@@ -24,6 +24,14 @@ var currentTurn = 0;
 
 async function StartGame() {
 
+	$("#decrementAllButton").css("visibility", "hidden");
+	$("#decrementButton").css("visibility", "hidden");
+	$("#incrementButton").css("visibility", "hidden");
+	$("#incrementAllButton").css("visibility", "hidden");
+	$("#startGameButton").css("visibility", "hidden");
+	$("#player1Input").removeClass("playerWinner");
+	$("#player2Input").removeClass("playerWinner");
+
 	var gameboardsWon = [0, 0, 0,
 						 0, 0, 0,
 						 0, 0, 0];
@@ -105,13 +113,15 @@ async function StartGame() {
 
 			if (checkBoardWinner(gameboardsWon) != 0){
 				$('.miniboard-highlight').remove();
-				document.getElementById("decrementAllButton").style.visibility = "visible";
-				document.getElementById("decrementButton").style.visibility = "visible";
-				document.getElementById("incrementButton").style.visibility = "visible";
-				document.getElementById("incrementAllButton").style.visibility = "visible";
-				var winnerDiv = document.getElementById("player" + checkBoardWinner(gameboardsWon) + "Input");
-				if (winnerDiv != null) {
-					winnerDiv.className += " playerWinner";
+				$("#decrementAllButton").css("visibility", "visible");
+				$("#decrementButton").css("visibility", "visible");
+				$("#incrementButton").css("visibility", "visible");
+				$("#incrementAllButton").css("visibility", "visible");
+				$("#startGameButton").css("visibility", "visible");
+				if (checkBoardWinner(gameboardsWon) == 1){
+					$("#player1Input").addClass("playerWinner");
+				}else if(checkBoardWinner(gameboardsWon) == 2){
+					$("#player2Input").addClass("playerWinner");
 				}
 				gameOver = true;
 			}
