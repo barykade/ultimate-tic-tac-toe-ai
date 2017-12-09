@@ -26,23 +26,36 @@ var player1Wins = 0;
 var player2Wins = 0;
 var catsWins = 0;
 
-function PlayMultipleGames() {
+async function PlayMultipleGames() {
 	allWins = [];
 	player1Wins = 0;
 	player2Wins = 0;
 	catsWins = 0;
 
+	$("#player1Input").removeClass("playerWinner");
+	$("#player2Input").removeClass("playerWinner");
+	$('.x').remove();
+	$('.o').remove();
+	$('.miniboard-o').remove();
+	$('.miniboard-x').remove();
+	$('.miniboard-cat').remove();
+
 	var gamesToPlay = $('#multipleGamesInput').val();
+	var lastUpdatedUI = 0;
 	while(allWins.length < gamesToPlay){
+		if (allWins.length >= (lastUpdatedUI + gamesToPlay / 100)) {
+			lastUpdatedUI = allWins.length;
+			await sleep(1);
+		}
 		StartGame(false);
+		$("#player1Wins").html(player1Wins);
+		$("#player2Wins").html(player2Wins);
 	}
 
 	$("#decrementAllButton").css("visibility", "hidden");
 	$("#decrementButton").css("visibility", "hidden");
 	$("#incrementButton").css("visibility", "hidden");
 	$("#incrementAllButton").css("visibility", "hidden");
-	$("#player1Input").removeClass("playerWinner");
-	$("#player2Input").removeClass("playerWinner");
 	if (player1Wins > player2Wins){
 		$("#player1Input").addClass("playerWinner");
 	}else if(player2Wins > player1Wins){
