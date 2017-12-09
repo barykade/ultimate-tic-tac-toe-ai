@@ -48,19 +48,24 @@ function PlayMultipleGames() {
 	}else if(player2Wins > player1Wins){
 		$("#player2Input").addClass("playerWinner");
 	}
+
+	$("#player1Wins").html(player1Wins);
+	$("#player2Wins").html(player2Wins);
 }
 
 async function StartGame(updateUI) {
 
-	$("#decrementAllButton").css("visibility", "hidden");
-	$("#decrementButton").css("visibility", "hidden");
-	$("#incrementButton").css("visibility", "hidden");
-	$("#incrementAllButton").css("visibility", "hidden");
-	$("#multipleGamesInput").css("visibility", "hidden");
-	$("#playMultipleGamesButton").css("visibility", "hidden");
-	$("#startGameButton").css("visibility", "hidden");
-	$("#player1Input").removeClass("playerWinner");
-	$("#player2Input").removeClass("playerWinner");
+	if(updateUI){
+		$("#decrementAllButton").css("visibility", "hidden");
+		$("#decrementButton").css("visibility", "hidden");
+		$("#incrementButton").css("visibility", "hidden");
+		$("#incrementAllButton").css("visibility", "hidden");
+		$("#multipleGamesInput").css("visibility", "hidden");
+		$("#playMultipleGamesButton").css("visibility", "hidden");
+		$("#startGameButton").css("visibility", "hidden");
+		$("#player1Input").removeClass("playerWinner");
+		$("#player2Input").removeClass("playerWinner");
+	}
 
 	var gameboardsWon = [0, 0, 0,
 						 0, 0, 0,
@@ -117,28 +122,37 @@ async function StartGame(updateUI) {
   		if (!turnValid(playerTurn, gameboardState, currentBoard, gameboardsWon)){
   			if(updateUI){
   				alert("Player " + currentPlayer + " invalid move: (" + playerTurn.boardIndex + ", " + playerTurn.spotIndex + ")");
+
+				$('.miniboard-highlight').remove();
+				$("#decrementAllButton").css("visibility", "visible");
+				$("#decrementButton").css("visibility", "visible");
+				$("#incrementButton").css("visibility", "visible");
+				$("#incrementAllButton").css("visibility", "visible");
+				$("#multipleGamesInput").css("visibility", "visible");
+				$("#playMultipleGamesButton").css("visibility", "visible");
+				$("#startGameButton").css("visibility", "visible");
+				if (currentPlayer == 2){
+					$("#player1Input").addClass("playerWinner");
+					player1Wins++;
+					allWins.push(1);
+				}else if(currentPlayer == 1){
+					$("#player2Input").addClass("playerWinner");
+					player2Wins++;
+					allWins.push(2);
+				}
+
+				$("#player1Wins").html(player1Wins);
+				$("#player2Wins").html(player2Wins);
+
+  			}else{
+  				if (currentPlayer == 2){
+					player1Wins++;
+					allWins.push(1);
+				}else if(currentPlayer == 1){
+					player2Wins++;
+					allWins.push(2);
+				}
   			}
-
-			$('.miniboard-highlight').remove();
-			$("#decrementAllButton").css("visibility", "visible");
-			$("#decrementButton").css("visibility", "visible");
-			$("#incrementButton").css("visibility", "visible");
-			$("#incrementAllButton").css("visibility", "visible");
-			$("#multipleGamesInput").css("visibility", "visible");
-			$("#playMultipleGamesButton").css("visibility", "visible");
-			$("#startGameButton").css("visibility", "visible");
-			if (currentPlayer == 2){
-				$("#player1Input").addClass("playerWinner");
-				player1Wins++;
-				allWins.push(1);
-			}else if(currentPlayer == 1){
-				$("#player2Input").addClass("playerWinner");
-				player2Wins++;
-				allWins.push(2);
-			}
-
-			$("#player1Wins").html(player1Wins);
-			$("#player2Wins").html(player2Wins);
 
 			gameOver = true;
 
@@ -179,30 +193,42 @@ async function StartGame(updateUI) {
 			}
 
 			if (checkBoardWinner(gameboardsWon) != 0){
-				$('.miniboard-highlight').remove();
-				$("#decrementAllButton").css("visibility", "visible");
-				$("#decrementButton").css("visibility", "visible");
-				$("#incrementButton").css("visibility", "visible");
-				$("#incrementAllButton").css("visibility", "visible");
-				$("#multipleGamesInput").css("visibility", "visible");
-				$("#playMultipleGamesButton").css("visibility", "visible");
-				$("#startGameButton").css("visibility", "visible");
-				if (checkBoardWinner(gameboardsWon) == 1){
-					$("#player1Input").addClass("playerWinner");
-					player1Wins++;
-					allWins.push(1);
-				}else if(checkBoardWinner(gameboardsWon) == 2){
-					$("#player2Input").addClass("playerWinner");
-					player2Wins++;
-					allWins.push(2);
+				if(updateUI){
+					$('.miniboard-highlight').remove();
+					$("#decrementAllButton").css("visibility", "visible");
+					$("#decrementButton").css("visibility", "visible");
+					$("#incrementButton").css("visibility", "visible");
+					$("#incrementAllButton").css("visibility", "visible");
+					$("#multipleGamesInput").css("visibility", "visible");
+					$("#playMultipleGamesButton").css("visibility", "visible");
+					$("#startGameButton").css("visibility", "visible");
+					if (checkBoardWinner(gameboardsWon) == 1){
+						$("#player1Input").addClass("playerWinner");
+						player1Wins++;
+						allWins.push(1);
+					}else if(checkBoardWinner(gameboardsWon) == 2){
+						$("#player2Input").addClass("playerWinner");
+						player2Wins++;
+						allWins.push(2);
+					}else{
+						catsWins++;
+						allWins.push(-1);
+					}
+
+					$("#player1Wins").html(player1Wins);
+					$("#player2Wins").html(player2Wins);
 				}else{
-					catsWins++;
-					allWins.push(-1);
+					if (checkBoardWinner(gameboardsWon) == 1){
+						player1Wins++;
+						allWins.push(1);
+					}else if(checkBoardWinner(gameboardsWon) == 2){
+						player2Wins++;
+						allWins.push(2);
+					}else{
+						catsWins++;
+						allWins.push(-1);
+					}
 				}
-
-				$("#player1Wins").html(player1Wins);
-				$("#player2Wins").html(player2Wins);
-
 				gameOver = true;
 			}
 		}
