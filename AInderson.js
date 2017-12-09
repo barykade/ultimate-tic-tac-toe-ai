@@ -32,7 +32,7 @@ function myAI(gameboardState, gameboardsWon, currentBoardIndex, player){
 }
 
 function playAnyBoard(gameboardState, gameboardsWon, player){
-
+	console.log("Play Any Board");
 	var vm = [];
 	var wm = [];
 	var wmtfcb = [];
@@ -45,14 +45,24 @@ function playAnyBoard(gameboardState, gameboardsWon, player){
 			var winnningMovesThatForceCertainBoard = findMovesThatForceCertainBoard(winningMoves, gameboardsWon, player);
 			var movesThatForceCertainBoard = findMovesThatForceCertainBoard(validMoves, gameboardsWon, player);
 
+			enemyPlayer = 1;
+			if (player == 1){
+				enemyPlayer = 2;
+			}
+			var enemySpotsInEachMiniboard = findEnemySpotsInEachMiniboard(gameboardState, gameboardsWon, enemyPlayer);
+
 			if (winnningMovesThatForceCertainBoard.length > 0){
-				wmtfcb.push(Turn(i, winnningMovesThatForceCertainBoard[0]));
+				console.log("wmtfcb");
+				wmtfcb.push(Turn(i, findValidMoveWithLeastEnemySpotsInBoard(winnningMovesThatForceCertainBoard, enemySpotsInEachMiniboard)));
 			}else if (winningMoves.length > 0){
-				wm.push(Turn(i, winningMoves[0]));
+				console.log("wm");
+				wm.push(Turn(i, findValidMoveWithLeastEnemySpotsInBoard(winningMoves, enemySpotsInEachMiniboard)));
 			}else if (movesThatForceCertainBoard.length > 0){
-				mtfcb.push(Turn(i, movesThatForceCertainBoard[0]));
+				console.log("mtfcb");
+				mtfcb.push(Turn(i, findValidMoveWithLeastEnemySpotsInBoard(movesThatForceCertainBoard, enemySpotsInEachMiniboard)));
 			}else{
-				vm.push(Turn(i, validMoves[0]));
+				console.log("vm");
+				vm.push(Turn(i, findValidMoveWithLeastEnemySpotsInBoard(validMoves, enemySpotsInEachMiniboard)));
 			}
 		}
 	}
@@ -69,20 +79,64 @@ function playAnyBoard(gameboardState, gameboardsWon, player){
 }
 
 function playBoard(boardIndex, gameboardState, gameboardsWon, player){
+	console.log("Play Board");
 	var validMoves = findAllValidMovesOnMiniboard(gameboardState[boardIndex], player);
 	var winningMoves = findWinningMovesOnMiniboard(validMoves, gameboardState[boardIndex], player);
 	var winnningMovesThatForceCertainBoard = findMovesThatForceCertainBoard(winningMoves, gameboardsWon, player);
 	var movesThatForceCertainBoard = findMovesThatForceCertainBoard(validMoves, gameboardsWon, player);
 
-	if (winnningMovesThatForceCertainBoard.length > 0){
-		return Turn(boardIndex, winnningMovesThatForceCertainBoard[0]);
-	}else if (winningMoves.length > 0){
-		return Turn(boardIndex, winningMoves[0]);
-	}else if (movesThatForceCertainBoard.length > 0){
-		return Turn(boardIndex, movesThatForceCertainBoard[0]);
-	}else{
-		return Turn(boardIndex, validMoves[0]);
+	enemyPlayer = 1;
+	if (player == 1){
+		enemyPlayer = 2;
 	}
+	var enemySpotsInEachMiniboard = findEnemySpotsInEachMiniboard(gameboardState, gameboardsWon, enemyPlayer);
+
+	if (winnningMovesThatForceCertainBoard.length > 0){
+		console.log("wmtfcb");
+		return Turn(boardIndex, findValidMoveWithLeastEnemySpotsInBoard(winnningMovesThatForceCertainBoard, enemySpotsInEachMiniboard));
+	}else if (winningMoves.length > 0){
+		console.log("wm");
+		return Turn(boardIndex, findValidMoveWithLeastEnemySpotsInBoard(winningMoves, enemySpotsInEachMiniboard));
+	}else if (movesThatForceCertainBoard.length > 0){
+		console.log("mtfcb");
+		return Turn(boardIndex, findValidMoveWithLeastEnemySpotsInBoard(movesThatForceCertainBoard, enemySpotsInEachMiniboard));
+	}else{
+		console.log("vm");
+		return Turn(boardIndex, findValidMoveWithLeastEnemySpotsInBoard(validMoves, enemySpotsInEachMiniboard));
+	}
+}
+
+function findValidMoveWithLeastEnemySpotsInBoard(validMoves, enemySpotsInBoard){
+	console.log(validMoves);
+	console.log(enemySpotsInBoard);
+	var leastSpots = 10;
+	var move = validMoves[0];
+	for(var i = 0; i < validMoves.length; i++){
+		if(enemySpotsInBoard[validMoves[i]] < leastSpots){
+			leastSpots = enemySpotsInBoard[validMoves[i]];
+			move = validMoves[i];
+		}
+	}
+	console.log(move);
+	return move;
+}
+
+function findEnemySpotsInEachMiniboard(gameboardState, gameboardsWon, enemyPlayer){
+	var enemySpotsInBoard = [];
+	for(var i = 0; i < gameboardsWon.length; i++){
+		if(gameboardsWon[i] != 0){
+			enemySpotsInBoard[i] = 10;
+		}else{
+			var spots = 0;
+			for(var j = 0; j < gameboardState[i].length; j++){
+				if(gameboardState[i][j] == enemyPlayer){
+					spots++;
+				}
+			}
+			enemySpotsInBoard[i] = spots;
+		}
+	}
+	return enemySpotsInBoard
 }
 
 function findAllValidMovesOnMiniboard (board, player) {

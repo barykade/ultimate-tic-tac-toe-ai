@@ -135,6 +135,10 @@ async function StartGame(updateUI) {
 				player2Wins++;
 				allWins.push(2);
 			}
+			
+			$("#player1Wins").html(player1Wins);
+			$("#player2Wins").html(player2Wins);
+
 			gameOver = true;
 
   			break;
