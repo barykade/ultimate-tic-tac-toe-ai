@@ -1,4 +1,4 @@
-function myAI(gameboardState, currentBoard, myTeam){
+function myAI(gameboardState, gameboardsWon, currentBoard, myTeam){
 	var turn = createTurn(-1, -1);
 	if (currentBoard == -1){
 		var isValidMiniBoard = false;

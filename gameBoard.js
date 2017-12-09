@@ -8,7 +8,7 @@ function createTurn(boardIndex, spotIndex) {
 	return obj;
 }
 
-function createPreviousTurn(gameboardState, gameboardsWon, currentBoard){
+function createGameSnapshot(gameboardState, gameboardsWon, currentBoard){
 
 	var obj = {
 		gameboardState: gameboardState,
@@ -50,8 +50,8 @@ async function StartGame() {
 		gameboardCopy[i] = gameboardState[i].slice();
 	}
 	var gameboardsWonCopy = gameboardsWon.slice();
-	var previousTurn = createPreviousTurn(gameboardCopy, gameboardsWonCopy, currentBoard);
-	allTurns.push(previousTurn);
+	var gameSnapshot = createGameSnapshot(gameboardCopy, gameboardsWonCopy, currentBoard);
+	allTurns.push(gameSnapshot);
 
 	while(!gameOver){
 		await sleep(50);
@@ -59,9 +59,9 @@ async function StartGame() {
   		var playerTurn;
   		
   		if (currentPlayer == 1){
-  			playerTurn = playerOneAI(gameboardStateCopy, currentBoard, currentPlayer);
+  			playerTurn = playerOneAI(gameboardStateCopy, gameboardsWon, currentBoard, currentPlayer);
   		}else{
-  			playerTurn = playerTwoAI(gameboardStateCopy, currentBoard, currentPlayer);
+  			playerTurn = playerTwoAI(gameboardStateCopy, gameboardsWon, currentBoard, currentPlayer);
   		}
 
   		if (!turnValid(playerTurn, gameboardState, currentBoard, gameboardsWon)){
@@ -86,8 +86,8 @@ async function StartGame() {
 				gameboardCopy[i] = gameboardState[i].slice();
 			}
 			var gameboardsWonCopy = gameboardsWon.slice();
-			var previousTurn = createPreviousTurn(gameboardCopy, gameboardsWonCopy, currentBoard);
-			allTurns.push(previousTurn);
+			var gameSnapshot = createGameSnapshot(gameboardCopy, gameboardsWonCopy, currentBoard);
+			allTurns.push(gameSnapshot);
 
   			currentTurn++;
 

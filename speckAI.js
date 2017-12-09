@@ -1,4 +1,4 @@
-function myAI(gameboard, currentBoard, player){
+function myAI(gameboard, gameboardsWon, currentBoard, player){
 	console.log('Running SpeckBot');
 
 	var corners = [0,2,6,8];
