@@ -37,6 +37,10 @@ function PlayMultipleGames() {
 		StartGame(false);
 	}
 
+	$("#decrementAllButton").css("visibility", "hidden");
+	$("#decrementButton").css("visibility", "hidden");
+	$("#incrementButton").css("visibility", "hidden");
+	$("#incrementAllButton").css("visibility", "hidden");
 	$("#player1Input").removeClass("playerWinner");
 	$("#player2Input").removeClass("playerWinner");
 	if (player1Wins > player2Wins){
