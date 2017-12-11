@@ -22,15 +22,13 @@ var playerTwoAI;
 		  	code = reader.result;
 
 		  	code = createUserProgram(code, functionName);
-		  	var script = document.createElement('script');
+		  	var script = document.createElement('script'); 
 			try {
 			  script.appendChild(document.createTextNode(code));
 			  document.body.appendChild(script);
-			  console.log("appended the baby");
 			} catch (e) {
 			  script.text = code;
 			  document.body.appendChild(script);
-			  console.log("appended the caught baby");
 			}
 		}
 

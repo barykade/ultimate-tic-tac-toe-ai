@@ -127,9 +127,9 @@ async function StartGame(updateUI) {
   		var playerTurn;
   		
   		if (currentPlayer == 1){
-  			playerTurn = playerOneAI(gameboardStateCopy, gameboardsWon, currentBoard, currentPlayer);
+  			playerTurn = await playerOneAI(gameboardStateCopy, gameboardsWon, currentBoard, currentPlayer);
   		}else{
-  			playerTurn = playerTwoAI(gameboardStateCopy, gameboardsWon, currentBoard, currentPlayer);
+  			playerTurn = await playerTwoAI(gameboardStateCopy, gameboardsWon, currentBoard, currentPlayer);
   		}
 
   		if (!turnValid(playerTurn, gameboardState, currentBoard, gameboardsWon)){
