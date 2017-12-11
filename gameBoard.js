@@ -47,7 +47,7 @@ async function PlayMultipleGames() {
 			lastUpdatedUI = allWins.length;
 			await sleep(1);
 		}
-		StartGame(false);
+		await StartGame(false);
 		$("#player1Wins").html(player1Wins);
 		$("#player2Wins").html(player2Wins);
 	}
